@@ -16,8 +16,18 @@
 <link rel="stylesheet" href="/index.css">
 </head>
 <body>
+  <div id="restoreBanner" style="display:none;">
+    <p>You have an unsaved session. <button id="restoreSessionBtn">Restore Session</button> or <button id="dismissSessionBtn">Dismiss</button></p>
+  </div>
+
   <div class="wrap">
-    <h1>📖 Novel Splitter</h1>
+    <div class="header">
+      <h1>📖 Novel Splitter</h1>
+      <button id="themeToggleBtn" class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+    </div>
 
     <!-- SETUP VIEW -->
     <div id="setupView">
@@ -38,28 +48,26 @@
         </div>
 
         <div style="margin-top:10px">
-          <label for="encodingSelect">Text Encoding</label>
+          <label for="encodingSelect">Text Encoding <span class="tooltip-trigger" data-tooltip="Auto-detect is recommended. For garbled Chinese text, the source file may be in GBK or Big5 format. Choose the one that makes the text readable.">?</span></label>
           <select id="encodingSelect">
             <option value="auto" selected>Auto-detect (UTF-8, GBK, Big5)</option>
             <option value="utf-8">UTF-8</option>
             <option value="gbk">GBK</option>
             <option value="big5">Big5</option>
           </select>
-          <div class="small muted">For garbled Chinese text, try selecting GBK or Big5.</div>
         </div>
 
         <div style="margin-top:10px">
-            <label>Text Cleanup Rules (Regex, one per line)</label>
+            <label>Text Cleanup Rules <span class="tooltip-trigger" data-tooltip="Enter a Regex pattern on each line. Any text that matches these patterns will be completely removed from the novel before it's split into chapters. This is useful for removing ads or repeated watermarks.">?</span></label>
             <div id="cleanupRulesContainer">
                 <!-- Rules will be added here dynamically -->
             </div>
             <button id="addRuleBtn" class="small-btn">Add Rule</button>
-            <div class="small muted">Removes lines matching these patterns before splitting. e.g., `^Advertisement:$`</div>
         </div>
 
 
         <div style="margin-top:10px">
-          <label for="chapterPattern">Chapter heading format</label>
+          <label for="chapterPattern">Chapter heading format <span class="tooltip-trigger" data-tooltip="Select the pattern that matches your novel's chapter headings. 'Auto Detect' is usually sufficient. If your headings aren't found, use 'Custom Regex' to define the pattern yourself.">?</span></label>
           <select id="chapterPattern">
             <option value="auto" selected>Auto Detect</option>
             <option value="chinese">Chinese: 第12章 …</option>
@@ -122,8 +130,14 @@
         </div>
         <div id="chapterEditorContainer" class="chapter-editor-container">
             <div class="editor-toolbar">
-                <button id="splitChapterBtn" disabled>Split Chapter at Cursor</button>
                 <button id="saveChapterBtn" disabled>Save Changes</button>
+                <button id="splitChapterBtn" disabled>Split at Cursor</button>
+                <button id="fullscreenBtn">Fullscreen</button>
+            </div>
+            <div class="find-replace-widget">
+                <input type="text" id="findInput" placeholder="Find...">
+                <input type="text" id="replaceInput" placeholder="Replace with...">
+                <button id="replaceAllBtn">Replace All</button>
             </div>
             <textarea id="chapterContent" placeholder="Select a chapter to view its content..."></textarea>
         </div>
@@ -136,6 +150,10 @@
     </div>
      <div class="small muted" style="margin-top:8px">Note: filenames inside ZIP/EPUB are zero-padded (000_, 001_, …) so they sort correctly.</div>
   </div>
+
+  <div id="toastContainer"></div>
+  <div id="tooltip" style="display:none;" role="tooltip"></div>
+
   <script type="module" src="/index.tsx"></script>
 </body>
 </html>
