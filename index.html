@@ -6,7 +6,6 @@
   <title>Novel Splitter</title>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-
 <script type="importmap">
 {
   "imports": {
@@ -14,8 +13,7 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="./assets/index-MZkadLUM.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BtdTm2dU.css">
+<link rel="stylesheet" href="/index.css">
 </head>
 <body>
   <div class="wrap">
@@ -27,12 +25,12 @@
 
       <div class="card">
         <div class="row">
-          <div id="fileDropZone" class="drop-zone">
+          <div id="fileDropZone" class="drop-zone" tabindex="0">
             <label for="fileInput">Novel text file (.txt)</label>
             <input id="fileInput" type="file" accept=".txt,text/plain">
             <div id="fileNameInfo" class="small muted">Or drag and drop file here</div>
           </div>
-          <div id="coverDropZone" class="drop-zone">
+          <div id="coverDropZone" class="drop-zone" tabindex="0">
             <label for="coverInput">Optional cover image</label>
             <input id="coverInput" type="file" accept="image/*">
             <div id="coverNameInfo" class="small muted">Or drag and drop image here</div>
@@ -138,5 +136,6 @@
     </div>
      <div class="small muted" style="margin-top:8px">Note: filenames inside ZIP/EPUB are zero-padded (000_, 001_, …) so they sort correctly.</div>
   </div>
+  <script type="module" src="/index.tsx"></script>
 </body>
 </html>
